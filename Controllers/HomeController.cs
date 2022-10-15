@@ -18,10 +18,6 @@ namespace Input_Form.Controllers
         public IActionResult Index()
         {
             Form form = Form.LoadForm();
-            /*Form form = new Form();
-            form.SetFormCreationDateTime();
-            form.InitializeDefaultValues();
-            form.InitializeDefaultFormulas();*/
 
             return View(form);
         }
@@ -34,20 +30,26 @@ namespace Input_Form.Controllers
         [HttpGet]
         public JsonResult GetForm()
         {
-            FormTransfer formTransfer = new FormTransfer();
 
             //TO DO: load Form from db and send as JSON object
 
-            return new JsonResult(Ok(formTransfer));
+            return new JsonResult(Ok());
         }
-
+        
         [HttpPost]
         public JsonResult PostForm(FormTransfer formTransfer)
         {
+            //FormTransfer formTransfer = JsonSerializer.Deserialize<FormTransfer>(transfer);
+            Form form = new Form();
+            form.ValueA.Value = Convert.ToDouble(formTransfer.ValueA);
+            form.ValueB.Value = Convert.ToDouble(formTransfer.ValueB);
+            form.ValueC.Value = Convert.ToDouble(formTransfer.ValueC);
+            form.Discriminant.Value = Convert.ToDouble(formTransfer.Discriminant);
+            form.FirstResult.Value = Convert.ToDouble(formTransfer.FirstResult);
+            form.SecondResult.Value = Convert.ToDouble(formTransfer.SecondResult);
+            FormCreator.SaveForm(form);
 
-
-
-            return Json(new { success = true });
+            return Json( new { success = true } );
         }
 
         [HttpPost]

@@ -1,29 +1,51 @@
-﻿using Microsoft.Data.SqlClient;
-using Input_Form.Models;
+﻿using Input_Form.Models;
 
 namespace Input_Form
 {
     public class FormCreator
     {
-        public static string connectionString = @"Server=(localdb)\mssqllocaldb;Database=InputForms;Trusted_Connection=True";
-        public Form LoadFormFormDb()
+        public static Form LoadForm()
         {
-            Form form = new Form();
-            string sqlExpression = "SELECT TOP 1 * FROM TABLE Forms ORDER BY FormId DESC";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (ApplicationContext db = new ApplicationContext())
             {
-                connection.Open();
-                
-                SqlCommand command = new SqlCommand(sqlExpression);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                var form = db.Forms.OrderByDescending(f => f.FormId).FirstOrDefault();
+                db.Entry(form).Reference(f => f.ValueA).Load();
+                db.Entry(form).Reference(f => f.ValueB).Load();
+                db.Entry(form).Reference(f => f.ValueC).Load();
+                db.Entry(form).Reference(f => f.Discriminant).Load();
+                db.Entry(form).Reference(f => f.FirstResult).Load();
+                db.Entry(form).Reference(f => f.SecondResult).Load();
+
+                Form loadedForm;
+
+                if (form != null)
                 {
-                    while (reader.Read())
+                    loadedForm = form;
+                }
+                else
+                {
+                    loadedForm = new Form();
+                    loadedForm.SetFormCreationDateTime();
+                    loadedForm.InitializeDefaultValues();
+                    loadedForm.InitializeDefaultFormulas();
+                    using (ApplicationContext nestedDb = new ApplicationContext())
                     {
+                        nestedDb.Indicators.AddRange(loadedForm.ValueA, loadedForm.ValueB, loadedForm.ValueC);
+                        nestedDb.Forms.Add(loadedForm);
+                        nestedDb.SaveChanges();
                     }
                 }
+                return loadedForm;
             }
-            return form;
+        }
+        
+        public static void SaveForm(Form form)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                db.Forms.Add(form);
+                db.SaveChanges();
+            }
         }
     }
 }

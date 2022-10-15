@@ -63,6 +63,7 @@
                         type: 'post',
                         url: 'home/postform',
                         data: JSON.stringify(formTransfer),
+                        dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
                             if (data.success == true) {
@@ -102,15 +103,15 @@
             <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
             <tr align="left">
                 <td>@Model.ValueA.Title</td>
-                <td><input type="text" contenteditable="true" id="valueA"/></td>
+                <td><input type="text" id="valueA" value="@Model.ValueA.Value"/></td>
             </tr>
             <tr align="left">
                 <td>@Model.ValueB.Title</td>
-                <td><input type="text" contenteditable="true" id="valueB"/></td>
+                    <td><input type="text" id="valueB" value="@Model.ValueB.Value" /></td>
             </tr>
             <tr align="left">
                 <td>@Model.ValueC.Title</td>
-                <td><input type="text" contenteditable="true" id="valueC"/></td>
+                    <td><input type="text" id="valueC" value="@Model.ValueC.Value" /></td>
             </tr>
             <tr align="left">
                 <td>@Model.Discriminant.Title</td>
