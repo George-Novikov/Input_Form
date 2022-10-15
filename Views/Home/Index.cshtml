@@ -1,0 +1,98 @@
+﻿@model Form
+
+@{
+    ViewData["Title"] = "Форма ввода";
+}
+
+<head>
+    <style>
+        td {
+            border: 1px solid gray;
+            width: 200px;
+        }
+    </style>
+    
+</head>
+
+@section Scripts
+{
+    
+    <script src="jquery-3.6.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $(".saveButton").click(function () {
+                    alert('Данные сохранены');
+                });
+            });
+
+            $.ajax({
+                type:"GET",
+                url: "@Url.Action("GetFormValues")",
+                dataType: "json",
+                success: function(result){
+                    console.log(result);
+                }
+                Error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PostFormValues")",
+                dataType: "json",
+                data: //TO DO: add data here?
+                success: function (result) {
+                    console.log(result);
+                }
+                        Error: function (req, status, error) {
+                    console.log(status);
+                }
+            });
+        });
+    </script>
+}
+
+
+<div class="text-center">
+    <table>
+        <tr>
+            <td style="border:0px"> </td>
+            <td style="border:0px"><input type="button" class="saveButton" value="Сохранить" /></td>
+        </tr>
+    </table>
+
+    <p></p>
+
+    <table>
+        <thread>
+            <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
+            <tr align="left">
+                <td>@Model.ValueA.Title</td>
+                <td bgcolor="d9e1f2"><div contenteditable="true" id="valueA"/></td>
+            </tr>
+            <tr align="left">
+                <td>@Model.ValueB.Title</td>
+                <td bgcolor="d9e1f2"><div contenteditable="true" id="valueB"/></td>
+            </tr>
+            <tr align="left">
+                <td>@Model.ValueC.Title</td>
+                <td bgcolor="d9e1f2"><div contenteditable="true" id="valueC"/></td>
+            </tr>
+            <tr align="left">
+                <td>@Model.Discriminant.Title</td>
+                <td bgcolor="c6e0b4">@Model.Discriminant.Value</td>
+            </tr>
+            <tr align="left">
+                <td>@Model.FirstResult.Title</td>
+                <td bgcolor="c6e0b4">@Model.FirstResult.Value</td>
+            </tr>
+            <tr align="left">
+                <td>@Model.SecondResult.Title</td>
+                <td bgcolor="c6e0b4">@Model.SecondResult.Value</td>
+            </tr>
+        </thread>
+    </table>
+</div>
+

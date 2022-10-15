@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "gKcexn6JEoFo8uotaUmrbX/YvCfgH4Vf7IKcIpn7HQvK6C3V28RHfLA86OX2eQzJbvIQX87n2Ebf+1nb+wKq3Q==",
+  "success": true,
+  "projectFilePath": "C:\\repository\\Input_Form\\Input_Form.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fatem\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}
