@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace Input_Form.Controllers
 {
@@ -17,6 +18,10 @@ namespace Input_Form.Controllers
         public IActionResult Index()
         {
             Form form = Form.LoadForm();
+            /*Form form = new Form();
+            form.SetFormCreationDateTime();
+            form.InitializeDefaultValues();
+            form.InitializeDefaultFormulas();*/
 
             return View(form);
         }
@@ -39,6 +44,9 @@ namespace Input_Form.Controllers
         [HttpPost]
         public JsonResult PostForm(FormTransfer formTransfer)
         {
+
+
+
             return Json(new { success = true });
         }
 

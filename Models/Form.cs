@@ -4,7 +4,7 @@ namespace Input_Form.Models
 {
     public class Form
     {
-        public int Id { get; set; }
+        public int FormId { get; set; }
         public DateTime CreationDateTime { get; set; }
         public string Title { get; set; } = "";
         public Indicator ValueA { get; set; }
@@ -13,6 +13,7 @@ namespace Input_Form.Models
         public Indicator Discriminant { get; set; }
         public Indicator FirstResult { get; set; }
         public Indicator SecondResult { get; set; }
+
         public DateTime SetFormCreationDateTime()
         {
             DateTime dateTime = DateTime.Now;
@@ -50,7 +51,14 @@ namespace Input_Form.Models
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                var form = db.Forms.OrderByDescending(f => f.Id).FirstOrDefault();
+                var form = db.Forms.OrderByDescending(f => f.FormId).FirstOrDefault();
+                db.Entry(form).Reference(f => f.ValueA).Load();
+                db.Entry(form).Reference(f => f.ValueB).Load();
+                db.Entry(form).Reference(f => f.ValueC).Load();
+                db.Entry(form).Reference(f => f.Discriminant).Load();
+                db.Entry(form).Reference(f => f.FirstResult).Load();
+                db.Entry(form).Reference(f => f.SecondResult).Load();
+
                 Form loadedForm;
 
                 if (form != null)

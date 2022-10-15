@@ -1,6 +1,6 @@
 ﻿namespace Input_Form
 {
-    public class IndicatorFactory
+    public class IndicatorCreator
     {
         //Derive from DB
         public void FetchManualInput()
