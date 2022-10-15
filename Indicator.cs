@@ -13,41 +13,11 @@ namespace Input_Form
         {
             Type = this.GetType().Name.ToString();
         }
-        public static Form InitializeForm()
+        public static List<Indicator> InitializeDb()
         {
-            Form form = new Form();
+            List<Indicator> indicators = new List<Indicator>();
 
-            ManualInput a = new ManualInput { Id = 1, Title = "Значение A" };
-            ManualInput b = new ManualInput { Id = 2, Title = "Значение B" };
-            ManualInput c = new ManualInput { Id = 3, Title = "Значение C" };
-
-            Formula discriminant = new Formula
-            {
-                Id = 4,
-                Title = "Дискриминант",
-                Value = Math.Pow(b.Value, 2) - 4 * a.Value * c.Value
-            };
-            Formula firstResult = new Formula
-            {
-                Id = 5,
-                Title = "Первый результат",
-                Value = (-b.Value + Math.Sqrt(discriminant.Value)) / 2 * a.Value
-            };
-            Formula secondResult = new Formula
-            {
-                Id = 6,
-                Title = "Второй результат",
-                Value = (-b.Value - Math.Sqrt(discriminant.Value)) / 2 * a.Value
-            };
-
-            form.ValueA = a;
-            form.ValueB = b;
-            form.ValueC = c;
-            form.Discriminant = discriminant;
-            form.FirstResult = firstResult;
-            form.SecondResult = secondResult;
-
-            return form;
+            return indicators;
         }
     }
     public class Formula : Indicator { }

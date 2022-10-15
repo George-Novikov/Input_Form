@@ -10,6 +10,11 @@
             border: 1px solid gray;
             width: 200px;
         }
+
+        input[type="text"], textarea {
+            background-color: #d9e1f2;
+            width: 100%;
+        }
     </style>
     
 </head>
@@ -26,31 +31,61 @@
                 });
             });
 
-            $.ajax({
-                type:"GET",
-                url: "@Url.Action("GetFormValues")",
-                dataType: "json",
-                success: function(result){
-                    console.log(result);
-                }
-                Error: function (req, status, error) {
-                    console.log(status);
-                }
+            $(function () {
+                $(".showButton").click(function () {
+                    var valueA = $("#valueA").val();
+                    var valueB = $("#valueB").val();
+                    var valueC = $("#valueC").val();
+                    alert(valueA + valueB + valueC);
+                });
             });
 
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("PostFormValues")",
-                dataType: "json",
-                data: //TO DO: add data here?
-                success: function (result) {
-                    console.log(result);
-                }
-                        Error: function (req, status, error) {
-                    console.log(status);
-                }
+            $(function () {
+                $(".fillButton").click(function () {
+                    $('#valueA').val('5');
+                    $('#valueB').val('6');
+                    $('#valueC').val('7');
+                });
+            });
+
+            var formTransfer = {
+                ValueA: $("#valueA").val(),
+                ValueB: $("#valueB").val(),
+                ValueC: $("#valueC").val(),
+                Discriminant: $("#discriminant").val(),
+                FirstResult: $("#firstResult").val(),
+                SecondResult: $("#secondResult").val()
+            };
+
+            $(function () {
+                $(".postButton").click(function () {
+                    alert(formTransfer.ValueA);
+                });
+            });
+            
+            $(function () {
+                $(".postButton").click(function (){
+                    $.ajax({
+                        type: 'post',
+                        url: 'home/postform',
+                        data: JSON.stringify(formTransfer),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data.success == true) {
+                                alert('Success');
+                            }
+                            else {
+                                alert('Fault');
+                            }
+                        },
+                        error: function () {
+                            alert('Error');
+                        }
+                    });
+                });
             });
         });
+
     </script>
 }
 
@@ -58,39 +93,42 @@
 <div class="text-center">
     <table>
         <tr>
-            <td style="border:0px"> </td>
+            <td style="border:0px"></td>
             <td style="border:0px"><input type="button" class="saveButton" value="Сохранить" /></td>
+            <td style="border:0px"><input type="button" class="postButton" value="Передать данные" /></td>
+            <td style="border:0px"><input type="button" class="fillButton" value="Заполнить таблицу" /></td>
+                <td style="border:0px"><input type="button" class="showButton" value="Показать значения" /></td>
         </tr>
     </table>
 
     <p></p>
 
-    <table>
+    <table id="formTable">
         <thread>
             <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
             <tr align="left">
                 <td>@Model.ValueA.Title</td>
-                <td bgcolor="d9e1f2"><div contenteditable="true" id="valueA"/></td>
+                <td><input type="text" contenteditable="true" id="valueA"/></td>
             </tr>
             <tr align="left">
                 <td>@Model.ValueB.Title</td>
-                <td bgcolor="d9e1f2"><div contenteditable="true" id="valueB"/></td>
+                <td><input type="text" contenteditable="true" id="valueB"/></td>
             </tr>
             <tr align="left">
                 <td>@Model.ValueC.Title</td>
-                <td bgcolor="d9e1f2"><div contenteditable="true" id="valueC"/></td>
+                <td><input type="text" contenteditable="true" id="valueC"/></td>
             </tr>
             <tr align="left">
                 <td>@Model.Discriminant.Title</td>
-                <td bgcolor="c6e0b4">@Model.Discriminant.Value</td>
+                <td bgcolor="c6e0b4"><div id="discriminant">@Model.Discriminant.Value</div></td>
             </tr>
             <tr align="left">
                 <td>@Model.FirstResult.Title</td>
-                <td bgcolor="c6e0b4">@Model.FirstResult.Value</td>
+                <td bgcolor="c6e0b4"><div id="firstResult">@Model.FirstResult.Value</div></td>
             </tr>
             <tr align="left">
                 <td>@Model.SecondResult.Title</td>
-                <td bgcolor="c6e0b4">@Model.SecondResult.Value</td>
+                <td bgcolor="c6e0b4"><div id="secondResult">@Model.SecondResult.Value</div></td>
             </tr>
         </thread>
     </table>

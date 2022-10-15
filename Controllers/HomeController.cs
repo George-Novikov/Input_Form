@@ -1,6 +1,7 @@
 ﻿using Input_Form.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace Input_Form.Controllers
 {
@@ -15,7 +16,16 @@ namespace Input_Form.Controllers
 
         public IActionResult Index()
         {
-            Form form = Indicator.InitializeForm();
+            Form form = new Form();
+            form.InitializeDefaultValues();
+            form.InitializeDefaultFormulas();
+
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                db.Indicators.AddRange(form.ValueA, form.ValueB, form.ValueC);
+                db.Forms.Add(form);
+                db.SaveChanges();
+            }
 
             return View(form);
         }
@@ -24,25 +34,27 @@ namespace Input_Form.Controllers
         {
             return View();
         }
+
         [HttpGet]
-        public void GetFormValues()
+        public JsonResult GetForm()
         {
+            FormTransfer formTransfer = new FormTransfer();
 
+            //TO DO: load Form from db and send as JSON object
+
+            return new JsonResult(Ok(formTransfer));
         }
+
         [HttpPost]
-        public void PostFormValues(string valueA, string valueB, string valueC, string discriminant, string firstResult, string secondResult)
+        public JsonResult PostForm(FormTransfer formTransfer)
         {
-
+            return Json(new { success = true });
         }
 
+        [HttpPost]
         public void SaveFormToDB()
         {
-
-        }
-
-        public void RestoreLastFormCondition()
-        {
-
+            //TO DO: recieve Form and save to db
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
