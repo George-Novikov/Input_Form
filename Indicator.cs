@@ -8,6 +8,7 @@ namespace Input_Form
         public string Title { get; set; }
         public string Description { get; set; } = "";
         public double Value { get; set; } = 0;
+        public string Formula { get; set; } = "";
         public string Type { get; set; }
         public Indicator()
         {

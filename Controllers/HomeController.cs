@@ -16,16 +16,7 @@ namespace Input_Form.Controllers
 
         public IActionResult Index()
         {
-            Form form = new Form();
-            form.InitializeDefaultValues();
-            form.InitializeDefaultFormulas();
-
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.Indicators.AddRange(form.ValueA, form.ValueB, form.ValueC);
-                db.Forms.Add(form);
-                db.SaveChanges();
-            }
+            Form form = Form.LoadForm();
 
             return View(form);
         }
