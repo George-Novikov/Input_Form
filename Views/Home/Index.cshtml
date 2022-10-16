@@ -38,26 +38,20 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var valueA = $("#valueA").val();
-            var valueB = $("#valueB").val();
-            var valueC = $("#valueC").val();
-            var discriminant = $("#discriminant").val();
-            var firstResult = $("#firstResult").val();
-            var secondResult = $("#secondResult").val();
-
-            var formTransfer = {
-                ValueA: valueA,
-                ValueB: valueB,
-                ValueC: valueC,
-                Discriminant: discriminant,
-                FirstResult: firstResult,
-                SecondResult: secondResult
-            };
-
             $(function () {
                 $(".saveButton").click(function () {
+
+                    var formTransfer = {
+                        ValueA: $('#valueA').val(),
+                        ValueB: $('#valueB').val(),
+                        ValueC: $('#valueC').val(),
+                        Discriminant: $('#discriminant').val(),
+                        FirstResult: $('#firstResult').val(),
+                        SecondResult: $('#secondResult').val()
+                    };
+
                     $.ajax({
-                        url: 'home/postform',
+                        url: 'home/saveformtodb',
                         type: 'post',
                         contentType: 'application/json;',
                         dataType: 'json',
@@ -78,6 +72,39 @@
             });
 
             $(function () {
+                $(".postButton").click(function () {
+
+                    var formTransfer = {
+                        ValueA: $('#valueA').val(),
+                        ValueB: $('#valueB').val(),
+                        ValueC: $('#valueC').val(),
+                        Discriminant: $('#discriminant').val(),
+                        FirstResult: $('#firstResult').val(),
+                        SecondResult: $('#secondResult').val()
+                    };
+
+                    $.ajax({
+                        url: 'home/postform',
+                        type: 'post',
+                        contentType: 'application/json;',
+                        dataType: 'json',
+                        data: JSON.stringify(formTransfer),
+                        success: function (data) {
+                            $('#valueA').val(data.valueA);
+                            $('#valueB').val(data.valueB);
+                            $('#valueC').val(data.valueC);
+                            $('#discriminant').val(data.discriminant);
+                            $('#firstResult').val(data.firstResult);
+                            $('#secondResult').val(data.secondResult);
+                        },
+                        error: function (error) {
+                            alert(error.statusText);
+                        }
+                    });
+                });
+            });
+
+            $(function () {
                 var onChanged = function () {
                     alert('Ввод данных');
                 }
@@ -87,21 +114,10 @@
             });
 
             $(function () {
-                $(".showButton").click(function () {
-                    var valueA = $("#valueA").val();
-                    var valueB = $("#valueB").val();
-                    var valueC = $("#valueC").val();
-                    var discriminant = $("#discriminant").val();
-                    alert(valueA + valueB + valueC + discriminant);
-                });
-            });
-
-            $(function () {
                 $(".fillButton").click(function () {
                     $('#valueA').val('5');
-                    $('#valueB').val('6');
+                    $('#valueB').val('20');
                     $('#valueC').val('7');
-                    $('#discriminant').val('13');
                 });
             });
 
@@ -137,7 +153,7 @@
             <td style="border:0px"></td>
             <td style="border:0px"><input type="button" class="saveButton" value="Сохранить" /></td>
             <td style="border:0px"><input type="button" class="fillButton" value="Заполнить таблицу" /></td>
-            <td style="border:0px"><input type="button" class="showButton" value="Показать значения" /></td>
+            <td style="border:0px"><input type="button" class="postButton" value="Показать значения" /></td>
             <td style="border:0px"><input type="button" class="getButton" value="Обновить таблицу" /></td>
         </tr>
     </table>

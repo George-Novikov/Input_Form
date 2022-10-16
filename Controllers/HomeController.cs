@@ -10,6 +10,7 @@ namespace Input_Form.Controllers
 {
     public class HomeController : Controller
     {
+        public Form formInstance = new Form();
         public FormTransfer formBuffer = new FormTransfer();
 
         private readonly ILogger<HomeController> _logger;
@@ -21,14 +22,30 @@ namespace Input_Form.Controllers
 
         public IActionResult Index()
         {
-            Form form = FormCreator.LoadForm();
+            formInstance = FormCreator.LoadForm();
 
-            return View(form);
+            return View(formInstance);
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult InitialFormLoad()
+        {
+            Form form = FormCreator.LoadForm();
+
+            return Json(new
+            {
+                valueA = form.ValueA.Value,
+                valueB = form.ValueB.Value,
+                valueC = form.ValueC.Value,
+                discriminant = form.Discriminant.Value,
+                firstResult = form.FirstResult.Value,
+                secondResult = form.SecondResult.Value
+            });
         }
 
         [HttpGet]
@@ -38,9 +55,9 @@ namespace Input_Form.Controllers
             form.SetFormCreationDateTime();
             form.InitializeDefaultValues();
             form.InitializeDefaultFormulas();
-            form.ValueA.Value = formBuffer.ValueA;
-            form.ValueB.Value = formBuffer.ValueB;
-            form.ValueC.Value = formBuffer.ValueC;
+            form.ValueA = formInstance.ValueA;
+            form.ValueB = formInstance.ValueB;
+            form.ValueC = formInstance.ValueC;
             bool discriminantPositive = form.CalculateValues();
 
             if (discriminantPositive)
@@ -74,9 +91,24 @@ namespace Input_Form.Controllers
         {            
             try
             {
-                formBuffer = formTransfer;
+                Form form = new Form();
+                form.SetFormCreationDateTime();
+                form.InitializeDefaultValues();
+                form.InitializeDefaultFormulas();
+                form.ValueA.Value = formTransfer.ValueA;
+                form.ValueB.Value = formTransfer.ValueB;
+                form.ValueC.Value = formTransfer.ValueC;
+                form.CalculateValues();
 
-                return Json(new { success = true });
+                return Json(new
+                {
+                    valueA = form.ValueA.Value,
+                    valueB = form.ValueB.Value,
+                    valueC = form.ValueC.Value,
+                    discriminant = form.Discriminant.Value,
+                    firstResult = form.FirstResult.Value,
+                    secondResult = form.SecondResult.Value
+                });
             }
             catch (Exception e)
             {
