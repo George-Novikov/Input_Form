@@ -10,7 +10,7 @@ namespace Input_Form.Controllers
 {
     public class HomeController : Controller
     {
-        public FormTransfer formBuffer;
+        public FormTransfer formBuffer = new FormTransfer();
 
         private readonly ILogger<HomeController> _logger;
 

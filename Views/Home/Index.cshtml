@@ -38,19 +38,21 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var formData = {
-                ValueA: $("#valueA").val(),
-                ValueB: $("#valueB").val(),
-                ValueC: $("#valueC").val(),
-                Discriminant: $("#discriminant").val(),
-                FirstResult: $("#firstResult").val(),
-                SecondResult: $("#secondResult").val()
-            };
-
             var valueA = $("#valueA").val();
-                    var valueB = $("#valueB").val();
-                    var valueC = $("#valueC").val();
-                    var discriminant = $("#discriminant").val();
+            var valueB = $("#valueB").val();
+            var valueC = $("#valueC").val();
+            var discriminant = $("#discriminant").val();
+            var firstResult = $("#firstResult").val();
+            var secondResult = $("#secondResult").val();
+
+            var formTransfer = {
+                ValueA: valueA,
+                ValueB: valueB,
+                ValueC: valueC,
+                Discriminant: discriminant,
+                FirstResult: firstResult,
+                SecondResult: secondResult
+            };
 
             $(function () {
                 $(".saveButton").click(function () {
@@ -59,7 +61,7 @@
                         type: 'post',
                         contentType: 'application/json;',
                         dataType: 'json',
-                        data: JSON.stringify({ formTransfer: formData }),
+                        data: JSON.stringify(formTransfer),
                         success: function (data) {
                             if (data.success == true) {
                                 alert('Success');
