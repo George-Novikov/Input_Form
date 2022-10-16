@@ -9,17 +9,17 @@ namespace Input_Form
             using (ApplicationContext db = new ApplicationContext())
             {
                 var form = db.Forms.OrderByDescending(f => f.FormId).FirstOrDefault();
-                db.Entry(form).Reference(f => f.ValueA).Load();
-                db.Entry(form).Reference(f => f.ValueB).Load();
-                db.Entry(form).Reference(f => f.ValueC).Load();
-                db.Entry(form).Reference(f => f.Discriminant).Load();
-                db.Entry(form).Reference(f => f.FirstResult).Load();
-                db.Entry(form).Reference(f => f.SecondResult).Load();
 
                 Form loadedForm;
 
                 if (form != null)
                 {
+                    db.Entry(form).Reference(f => f.ValueA).Load();
+                    db.Entry(form).Reference(f => f.ValueB).Load();
+                    db.Entry(form).Reference(f => f.ValueC).Load();
+                    db.Entry(form).Reference(f => f.Discriminant).Load();
+                    db.Entry(form).Reference(f => f.FirstResult).Load();
+                    db.Entry(form).Reference(f => f.SecondResult).Load();
                     loadedForm = form;
                 }
                 else

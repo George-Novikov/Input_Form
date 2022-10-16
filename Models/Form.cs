@@ -27,24 +27,27 @@ namespace Input_Form.Models
         }
         public void InitializeDefaultFormulas()
         {
-            Discriminant = new Formula
+            Discriminant = new Formula { Title = "Дискриминант", Formula = "Pow(B,2)-4*A*C" };
+            FirstResult = new Formula { Title = "Первый результат", Formula = "(-B+Sqrt(D))/2*A" };
+            SecondResult = new Formula { Title = "Второй результат", Formula = "(-B-Sqrt(D))/2*A" };
+        }
+
+        public bool CalculateValues()
+        {
+            Discriminant.Value = Math.Pow(ValueB.Value, 2) - 4 * ValueA.Value * ValueC.Value;
+
+            if (Discriminant.Value > 0)
             {
-                Title = "Дискриминант",
-                Value = Math.Pow(ValueB.Value, 2) - 4 * ValueA.Value * ValueC.Value,
-                Formula = "Pow(B,2)-4*A*C"
-            };
-            FirstResult = new Formula
+                FirstResult.Value = (-ValueB.Value + Math.Sqrt(Discriminant.Value)) / 2 * ValueA.Value;
+                SecondResult.Value = (-ValueB.Value - Math.Sqrt(Discriminant.Value)) / 2 * ValueA.Value;
+                return true;
+            }
+            else
             {
-                Title = "Первый результат",
-                Value = (-ValueB.Value + Math.Sqrt(Discriminant.Value)) / 2 * ValueA.Value,
-                Formula = "(-B+Sqrt(D))/2*A"
-            };
-            SecondResult = new Formula
-            {
-                Title = "Второй результат",
-                Value = (-ValueB.Value - Math.Sqrt(Discriminant.Value)) / 2 * ValueA.Value,
-                Formula = "(-B-Sqrt(D))/2*A"
-            };
+                FirstResult.Value = 0;
+                SecondResult.Value = 0;
+                return false;
+            }
         }
 
         public static Form LoadForm()

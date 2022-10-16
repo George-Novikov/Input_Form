@@ -14,12 +14,6 @@ namespace Input_Form
         {
             Type = this.GetType().Name.ToString();
         }
-        public static List<Indicator> InitializeDb()
-        {
-            List<Indicator> indicators = new List<Indicator>();
-
-            return indicators;
-        }
     }
     public class Formula : Indicator { }
     public class ManualInput : Indicator { }
