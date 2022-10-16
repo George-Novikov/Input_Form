@@ -85,10 +85,10 @@ namespace Input_Form.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
-        public IActionResult PostForm([FromBody]FormTransfer formTransfer)
-        {            
+        public IActionResult PostForm([FromBody] FormTransfer formTransfer)
+        {
             try
             {
                 Form form = new Form();
@@ -112,12 +112,12 @@ namespace Input_Form.Controllers
             }
             catch (Exception e)
             {
-                return Json(new { status = e.Message+" "+e.TargetSite });
+                return Json(new { status = e.Message + " " + e.TargetSite });
             }
         }
 
         [HttpPost]
-        public IActionResult SaveFormToDB([FromBody]FormTransfer formTransfer)
+        public IActionResult SaveFormToDB([FromBody] FormTransfer formTransfer)
         {
             try
             {

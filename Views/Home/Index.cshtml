@@ -26,21 +26,18 @@
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
         }
-
     </style>
-    
+
 </head>
 
 @section Scripts
-{
-    
+    {
+
     <script src="jquery-3.6.1.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-
             $(function () {
                 $(".saveButton").click(function () {
-
                     var formTransfer = {
                         ValueA: $('#valueA').val(),
                         ValueB: $('#valueB').val(),
@@ -49,7 +46,6 @@
                         FirstResult: $('#firstResult').val(),
                         SecondResult: $('#secondResult').val()
                     };
-
                     $.ajax({
                         url: 'home/saveformtodb',
                         type: 'post',
@@ -70,10 +66,8 @@
                     });
                 });
             });
-
             $(function () {
                 $(".postButton").click(function () {
-
                     var formTransfer = {
                         ValueA: $('#valueA').val(),
                         ValueB: $('#valueB').val(),
@@ -82,7 +76,6 @@
                         FirstResult: $('#firstResult').val(),
                         SecondResult: $('#secondResult').val()
                     };
-
                     $.ajax({
                         url: 'home/postform',
                         type: 'post',
@@ -103,7 +96,6 @@
                     });
                 });
             });
-
             $(function () {
                 var onChanged = function () {
                     alert('Ввод данных');
@@ -112,7 +104,6 @@
                     $(".formTable").on("change", onChanged)
                 });
             });
-
             $(function () {
                 $(".fillButton").click(function () {
                     $('#valueA').val('5');
@@ -120,7 +111,6 @@
                     $('#valueC').val('7');
                 });
             });
-
             $(function () {
                 $(".getButton").click(function () {
                     $.ajax({
@@ -140,54 +130,49 @@
                     });
                 });
             });
-
         });
-
     </script>
 }
 
 
-<div class="text-center">
-    <table>
-        <tr>
-            <td style="border:0px"></td>
-            <td style="border:0px"><input type="button" class="saveButton" value="Сохранить" /></td>
-            <td style="border:0px"><input type="button" class="fillButton" value="Заполнить таблицу" /></td>
-            <td style="border:0px"><input type="button" class="postButton" value="Показать значения" /></td>
-            <td style="border:0px"><input type="button" class="getButton" value="Обновить таблицу" /></td>
-        </tr>
-    </table>
+    <div class="text-center">
+        <table>
+            <tr>
+                <td style="border:0px"></td>
+                <td style="border:0px"><input type="button" class="saveButton" value="Сохранить" /></td>
+                <td style="border:0px"><input type="button" class="postButton" value="Передать значения" /></td>
+            </tr>
+        </table>
 
-    <p></p>
+        <p></p>
 
-    <table class="formTable">
-        <thread>
-            <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
-            <tr align="left">
-                <td>@Model.ValueA.Title</td>
-                <td><input type="number" id="valueA" value="@Model.ValueA.Value"/></td>
-            </tr>
-            <tr align="left">
-                <td>@Model.ValueB.Title</td>
-                <td><input type="number" id="valueB" value="@Model.ValueB.Value" /></td>
-            </tr>
-            <tr align="left">
-                <td>@Model.ValueC.Title</td>
-                <td><input type="number" id="valueC" value="@Model.ValueC.Value" /></td>
-            </tr>
-            <tr align="left">
-                <td>@Model.Discriminant.Title</td>
-                <td><input readonly type="text" id="discriminant" value="@Model.Discriminant.Value"/></td>
-            </tr>
-            <tr align="left">
-                <td>@Model.FirstResult.Title</td>
-                <td><input readonly type="text" id="firstResult" value="@Model.FirstResult.Value"/></td>
-            </tr>
-            <tr align="left">
-                <td>@Model.SecondResult.Title</td>
-                <td><input readonly type="text" id="secondResult" value="@Model.SecondResult.Value"/></td>
-            </tr>
-        </thread>
-    </table>
-</div>
-
+        <table class="formTable">
+            <thread>
+                <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
+                <tr align="left">
+                    <td>@Model.ValueA.Title</td>
+                    <td><input type="number" id="valueA" value="@Model.ValueA.Value" /></td>
+                </tr>
+                <tr align="left">
+                    <td>@Model.ValueB.Title</td>
+                    <td><input type="number" id="valueB" value="@Model.ValueB.Value" /></td>
+                </tr>
+                <tr align="left">
+                    <td>@Model.ValueC.Title</td>
+                    <td><input type="number" id="valueC" value="@Model.ValueC.Value" /></td>
+                </tr>
+                <tr align="left">
+                    <td>@Model.Discriminant.Title</td>
+                    <td><input readonly type="text" id="discriminant" value="@Model.Discriminant.Value" /></td>
+                </tr>
+                <tr align="left">
+                    <td>@Model.FirstResult.Title</td>
+                    <td><input readonly type="text" id="firstResult" value="@Model.FirstResult.Value" /></td>
+                </tr>
+                <tr align="left">
+                    <td>@Model.SecondResult.Title</td>
+                    <td><input readonly type="text" id="secondResult" value="@Model.SecondResult.Value" /></td>
+                </tr>
+            </thread>
+        </table>
+    </div>
