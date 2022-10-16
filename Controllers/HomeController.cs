@@ -8,6 +8,9 @@ namespace Input_Form.Controllers
 {
     public class HomeController : Controller
     {
+        public FormTransfer formBuffer;
+        public string stringBuffer;
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -17,7 +20,7 @@ namespace Input_Form.Controllers
 
         public IActionResult Index()
         {
-            Form form = Form.LoadForm();
+            Form form = FormCreator.LoadForm();
 
             return View(form);
         }
@@ -28,28 +31,48 @@ namespace Input_Form.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetForm()
+        public IActionResult GetForm()
         {
+            Form form = new Form();
+            form.SetFormCreationDateTime();
+            form.InitializeDefaultValues();
+            form.ValueA.Value = 135;
+            form.ValueB.Value = 120;
+            form.ValueC.Value = 76;
+            form.InitializeDefaultFormulas();
 
-            //TO DO: load Form from db and send as JSON object
+            //TO DO: load updated Form from buffer and send as JSON object
 
-            return new JsonResult(Ok());
+            return View(form);
         }
         
         [HttpPost]
-        public JsonResult PostForm(FormTransfer formTransfer)
+        public IActionResult PostForm([FromBody]FormTransfer formTransfer)
         {
             //FormTransfer formTransfer = JsonSerializer.Deserialize<FormTransfer>(transfer);
-            Form form = new Form();
-            form.ValueA.Value = Convert.ToDouble(formTransfer.ValueA);
-            form.ValueB.Value = Convert.ToDouble(formTransfer.ValueB);
-            form.ValueC.Value = Convert.ToDouble(formTransfer.ValueC);
-            form.Discriminant.Value = Convert.ToDouble(formTransfer.Discriminant);
-            form.FirstResult.Value = Convert.ToDouble(formTransfer.FirstResult);
-            form.SecondResult.Value = Convert.ToDouble(formTransfer.SecondResult);
-            FormCreator.SaveForm(form);
+            
+            try
+            {
+                Form form = new Form();
+                form.SetFormCreationDateTime();
+                form.InitializeDefaultValues();
+                form.InitializeDefaultFormulas();
+                form.ValueA.Value = Convert.ToDouble(formTransfer.ValueA);
+                form.ValueB.Value = Convert.ToDouble(formTransfer.ValueB);
+                form.ValueC.Value = Convert.ToDouble(formTransfer.ValueC);
+                form.Discriminant.Value = Convert.ToDouble(formTransfer.Discriminant);
+                form.FirstResult.Value = Convert.ToDouble(formTransfer.FirstResult);
+                form.SecondResult.Value = Convert.ToDouble(formTransfer.SecondResult);
+                FormCreator.SaveForm(form);
 
-            return Json( new { success = true } );
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return Json(new { status = e.Message });
+            }
+
+            
         }
 
         [HttpPost]
