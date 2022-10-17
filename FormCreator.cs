@@ -28,10 +28,8 @@ namespace Input_Form
                     loadedForm.SetFormCreationDateTime();
                     loadedForm.InitializeDefaultValues();
                     loadedForm.InitializeDefaultFormulas();
-                    loadedForm.CalculateValues();
                     using (ApplicationContext nestedDb = new ApplicationContext())
                     {
-                        nestedDb.Indicators.AddRange(loadedForm.IndicatorA, loadedForm.IndicatorB, loadedForm.IndicatorC);
                         nestedDb.Forms.Add(loadedForm);
                         nestedDb.SaveChanges();
                     }

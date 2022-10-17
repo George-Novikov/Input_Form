@@ -72,42 +72,7 @@ namespace Input_Form.Models
             FirstResult.Description = FirstResult.Type + "_Result_" + FirstResultValue.ToString();
             SecondResult.Description = SecondResult.Type + "_Result_" + SecondResultValue.ToString();
 
-            FormName = "Form_" + CreationDateTime.ToShortDateString();
-        }
-
-        public static Form LoadForm()
-        {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                var form = db.Forms.OrderByDescending(f => f.FormId).FirstOrDefault();
-                db.Entry(form).Reference(f => f.IndicatorA).Load();
-                db.Entry(form).Reference(f => f.IndicatorB).Load();
-                db.Entry(form).Reference(f => f.IndicatorC).Load();
-                db.Entry(form).Reference(f => f.Discriminant).Load();
-                db.Entry(form).Reference(f => f.FirstResult).Load();
-                db.Entry(form).Reference(f => f.SecondResult).Load();
-
-                Form loadedForm;
-
-                if (form != null)
-                {
-                    loadedForm = form;
-                }
-                else
-                {
-                    loadedForm = new Form();
-                    loadedForm.SetFormCreationDateTime();
-                    loadedForm.InitializeDefaultValues();
-                    loadedForm.InitializeDefaultFormulas();
-                    using (ApplicationContext nestedDb = new ApplicationContext())
-                    {
-                        nestedDb.Indicators.AddRange(loadedForm.IndicatorA, loadedForm.IndicatorB, loadedForm.IndicatorC);
-                        nestedDb.Forms.Add(loadedForm);
-                        nestedDb.SaveChanges();
-                    }
-                }
-                return loadedForm;
-            }
+            FormName = "Form_" + CreationDateTime.ToString();
         }
     }
 }
