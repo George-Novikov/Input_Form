@@ -65,7 +65,7 @@
                 });
             });
             $(function () {
-                $(".postButton").click(function () {
+                var onChanged = function () {
                     var formTransfer = {
                         valueA: parseFloat($("#valueA").val()),
                         valueB: parseFloat($("#valueB").val()),
@@ -92,11 +92,6 @@
                             alert(error.statusText);
                         }
                     });
-                });
-            });
-            $(function () {
-                var onChanged = function () {
-                    alert('Ввод данных');
                 }
                 $(function () {
                     $(".formTable").on("change", onChanged)
@@ -112,7 +107,6 @@
             <tr>
                 <td style="border:0px"></td>
                 <td style="border:0px"><input type="button" class="saveButton" value="Сохранить" /></td>
-                <td style="border:0px"><input type="button" class="postButton" value="Передать значения" /></td>
             </tr>
         </table>
 

@@ -38,8 +38,8 @@ namespace Input_Form.Models
 
             if (Discriminant.Value > 0)
             {
-                FirstResult.Value = (-ValueB.Value + Math.Sqrt(Discriminant.Value)) / 2 * ValueA.Value;
-                SecondResult.Value = (-ValueB.Value - Math.Sqrt(Discriminant.Value)) / 2 * ValueA.Value;
+                FirstResult.Value = (-ValueB.Value + Math.Sqrt(Discriminant.Value)) / (2 * ValueA.Value);
+                SecondResult.Value = (-ValueB.Value - Math.Sqrt(Discriminant.Value)) / (2 * ValueA.Value);
                 return true;
             }
             else
