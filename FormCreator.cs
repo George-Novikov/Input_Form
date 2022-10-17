@@ -28,6 +28,7 @@ namespace Input_Form
                     loadedForm.SetFormCreationDateTime();
                     loadedForm.InitializeDefaultValues();
                     loadedForm.InitializeDefaultFormulas();
+                    loadedForm.SetValues();
                     using (ApplicationContext nestedDb = new ApplicationContext())
                     {
                         nestedDb.Forms.Add(loadedForm);
