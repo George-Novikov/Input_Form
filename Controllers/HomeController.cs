@@ -83,6 +83,10 @@ namespace Input_Form.Controllers
         [HttpPost]
         public IActionResult SaveFormToDB([FromBody] FormTransfer formTransfer)
         {
+            if (formTransfer == null)
+            {
+                formTransfer = new FormTransfer();
+            }
             try
             {
                 Form form = new Form();
