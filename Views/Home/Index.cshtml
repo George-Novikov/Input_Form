@@ -52,7 +52,7 @@
                         data: JSON.stringify(formTransfer),
                         success: function (data) {
                             if (data.success == true) {
-                                alert('Success');
+                                alert('Данные формы успешно сохранены');
                             }
                             else {
                                 alert(data.status);
@@ -87,6 +87,9 @@
                             $('#discriminant').val(data.discriminant);
                             $('#firstResult').val(data.firstResult);
                             $('#secondResult').val(data.secondResult);
+                            if (data.success == false){
+                                alert('Отрицательный дискриминант. Пожалуйста введите другие значения.')
+                            }
                         },
                         error: function (error) {
                             console.log(error.statusText + ': Введите больше данных');
@@ -94,7 +97,17 @@
                     });
                 }
                 $(function () {
-                    $(".formTable").on("change", onChanged)
+                    var empty = true;
+                    $('input[type="number"]').each(function(){
+                        if ($(this).val() != ""){
+                            empty = false;
+                            return false;
+                        }
+                    })
+                    if (empty == false)
+                    {
+                        $(".formTable").on("change", onChanged)
+                    }
                 });
             });
         });
@@ -117,15 +130,15 @@
                 <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
                 <tr align="left">
                     <td>@Model.IndicatorA.Title</td>
-                    <td><input type="number" id="valueA" value="@Model.IndicatorA.Value" /></td>
+                    <td><input type="number" id="valueA" value="@Model.IndicatorA.Value" pattern="[0-9]+"/></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.IndicatorB.Title</td>
-                    <td><input type="number" id="valueB" value="@Model.IndicatorB.Value" /></td>
+                    <td><input type="number" id="valueB" value="@Model.IndicatorB.Value" pattern="[0-9]+" /></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.IndicatorC.Title</td>
-                    <td><input type="number" id="valueC" value="@Model.IndicatorC.Value" /></td>
+                    <td><input type="number" id="valueC" value="@Model.IndicatorC.Value" pattern="[0-9]+"/></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.Discriminant.Title</td>

@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection;
+using Microsoft.AspNetCore.Connections.Features;
 
 namespace Input_Form.Controllers
 {
@@ -30,6 +32,10 @@ namespace Input_Form.Controllers
         [HttpPost]
         public IActionResult PostForm([FromBody] FormTransfer formTransfer)
         {
+            if (formTransfer == null)
+            {
+                formTransfer = new FormTransfer();
+            }
             try
             {
                 Form form = new Form();
@@ -50,7 +56,8 @@ namespace Input_Form.Controllers
                         valueC = form.IndicatorC.Value,
                         discriminant = form.Discriminant.Value,
                         firstResult = form.FirstResult.Value,
-                        secondResult = form.SecondResult.Value
+                        secondResult = form.SecondResult.Value,
+                        success = true
                     });
                 }
                 else
@@ -61,8 +68,9 @@ namespace Input_Form.Controllers
                         valueB = form.IndicatorB.Value,
                         valueC = form.IndicatorC.Value,
                         discriminant = form.Discriminant.Value,
-                        firstResult = "отриц. дискриминант!",
-                        secondResult = "отриц. дискриминант!"
+                        firstResult = form.FirstResult.Value,
+                        secondResult = form.SecondResult.Value,
+                        success = false
                     });
                 }
             }

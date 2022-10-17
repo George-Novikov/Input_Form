@@ -26,9 +26,9 @@ namespace Input_Form.Models
         }
         public void InitializeDefaultValues()
         {
-            IndicatorA = new ManualInput { Title = "Значение A" };
-            IndicatorB = new ManualInput { Title = "Значение B" };
-            IndicatorC = new ManualInput { Title = "Значение C" };
+            IndicatorA = new ManualInput { Title = "Значение A", Formula = "-" };
+            IndicatorB = new ManualInput { Title = "Значение B", Formula = "-" };
+            IndicatorC = new ManualInput { Title = "Значение C", Formula = "-" };
         }
         public void InitializeDefaultFormulas()
         {
@@ -41,7 +41,7 @@ namespace Input_Form.Models
         {
             Discriminant.Value = Math.Pow(IndicatorB.Value, 2) - 4 * IndicatorA.Value * IndicatorC.Value;
 
-            if (Discriminant.Value > 0)
+            if (Discriminant.Value >= 0)
             {
                 FirstResult.Value = (-IndicatorB.Value + Math.Sqrt(Discriminant.Value)) / (2 * IndicatorA.Value);
                 SecondResult.Value = (-IndicatorB.Value - Math.Sqrt(Discriminant.Value)) / (2 * IndicatorA.Value);
