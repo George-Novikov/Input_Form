@@ -89,7 +89,7 @@
                             $('#secondResult').val(data.secondResult);
                         },
                         error: function (error) {
-                            alert(error.statusText);
+                            console.log(error.statusText + ': Введите больше данных');
                         }
                     });
                 }
@@ -116,16 +116,16 @@
             <thread>
                 <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
                 <tr align="left">
-                    <td>@Model.ValueA.Title</td>
-                    <td><input type="number" id="valueA" value="@Model.ValueA.Value" /></td>
+                    <td>@Model.IndicatorA.Title</td>
+                    <td><input type="number" id="valueA" value="@Model.IndicatorA.Value" /></td>
                 </tr>
                 <tr align="left">
-                    <td>@Model.ValueB.Title</td>
-                    <td><input type="number" id="valueB" value="@Model.ValueB.Value" /></td>
+                    <td>@Model.IndicatorB.Title</td>
+                    <td><input type="number" id="valueB" value="@Model.IndicatorB.Value" /></td>
                 </tr>
                 <tr align="left">
-                    <td>@Model.ValueC.Title</td>
-                    <td><input type="number" id="valueC" value="@Model.ValueC.Value" /></td>
+                    <td>@Model.IndicatorC.Title</td>
+                    <td><input type="number" id="valueC" value="@Model.IndicatorC.Value" /></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.Discriminant.Title</td>

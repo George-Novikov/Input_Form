@@ -20,9 +20,9 @@ namespace Input_Form
             modelBuilder.Entity<Indicator>().HasKey(e => e.IndicatorId);
 
             modelBuilder.Entity<Form>().HasKey(e => e.FormId);
-            modelBuilder.Entity<Form>().HasOne(e => e.ValueA).WithMany().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Form>().HasOne(e => e.ValueB).WithMany().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Form>().HasOne(e => e.ValueC).WithMany().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Form>().HasOne(e => e.IndicatorA).WithMany().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Form>().HasOne(e => e.IndicatorB).WithMany().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Form>().HasOne(e => e.IndicatorC).WithMany().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Form>().HasOne(e => e.Discriminant).WithMany().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Form>().HasOne(e => e.FirstResult).WithMany().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Form>().HasOne(e => e.SecondResult).WithMany().OnDelete(DeleteBehavior.NoAction);

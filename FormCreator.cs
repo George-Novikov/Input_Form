@@ -14,9 +14,9 @@ namespace Input_Form
 
                 if (form != null)
                 {
-                    db.Entry(form).Reference(f => f.ValueA).Load();
-                    db.Entry(form).Reference(f => f.ValueB).Load();
-                    db.Entry(form).Reference(f => f.ValueC).Load();
+                    db.Entry(form).Reference(f => f.IndicatorA).Load();
+                    db.Entry(form).Reference(f => f.IndicatorB).Load();
+                    db.Entry(form).Reference(f => f.IndicatorC).Load();
                     db.Entry(form).Reference(f => f.Discriminant).Load();
                     db.Entry(form).Reference(f => f.FirstResult).Load();
                     db.Entry(form).Reference(f => f.SecondResult).Load();
@@ -31,7 +31,7 @@ namespace Input_Form
                     loadedForm.CalculateValues();
                     using (ApplicationContext nestedDb = new ApplicationContext())
                     {
-                        nestedDb.Indicators.AddRange(loadedForm.ValueA, loadedForm.ValueB, loadedForm.ValueC);
+                        nestedDb.Indicators.AddRange(loadedForm.IndicatorA, loadedForm.IndicatorB, loadedForm.IndicatorC);
                         nestedDb.Forms.Add(loadedForm);
                         nestedDb.SaveChanges();
                     }
