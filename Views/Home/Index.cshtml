@@ -32,24 +32,22 @@
 
 @section Scripts
     {
-
-    <script src="jquery-3.6.1.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(function () {
                 $(".saveButton").click(function () {
                     var formTransfer = {
-                        ValueA: $('#valueA').val(),
-                        ValueB: $('#valueB').val(),
-                        ValueC: $('#valueC').val(),
-                        Discriminant: $('#discriminant').val(),
-                        FirstResult: $('#firstResult').val(),
-                        SecondResult: $('#secondResult').val()
+                        valueA: parseFloat($("#valueA").val()),
+                        valueB: parseFloat($("#valueB").val()),
+                        valueC: parseFloat($("#valueC").val()),
+                        discriminant: parseFloat($("#discriminant").val()),
+                        firstResult: parseFloat($("#firstResult").val()),
+                        secondResult: parseFloat($("#secondResult").val())
                     };
                     $.ajax({
                         url: 'home/saveformtodb',
                         type: 'post',
-                        contentType: 'application/json;',
+                        contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         data: JSON.stringify(formTransfer),
                         success: function (data) {
@@ -69,17 +67,17 @@
             $(function () {
                 $(".postButton").click(function () {
                     var formTransfer = {
-                        ValueA: $('#valueA').val(),
-                        ValueB: $('#valueB').val(),
-                        ValueC: $('#valueC').val(),
-                        Discriminant: $('#discriminant').val(),
-                        FirstResult: $('#firstResult').val(),
-                        SecondResult: $('#secondResult').val()
+                        valueA: parseFloat($("#valueA").val()),
+                        valueB: parseFloat($("#valueB").val()),
+                        valueC: parseFloat($("#valueC").val()),
+                        discriminant: parseFloat($("#discriminant").val()),
+                        firstResult: parseFloat($("#firstResult").val()),
+                        secondResult: parseFloat($("#secondResult").val())
                     };
                     $.ajax({
                         url: 'home/postform',
                         type: 'post',
-                        contentType: 'application/json;',
+                        contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         data: JSON.stringify(formTransfer),
                         success: function (data) {
@@ -102,32 +100,6 @@
                 }
                 $(function () {
                     $(".formTable").on("change", onChanged)
-                });
-            });
-            $(function () {
-                $(".fillButton").click(function () {
-                    $('#valueA').val('5');
-                    $('#valueB').val('20');
-                    $('#valueC').val('7');
-                });
-            });
-            $(function () {
-                $(".getButton").click(function () {
-                    $.ajax({
-                        type: 'get',
-                        url: 'home/getform',
-                        success: function (data) {
-                            $('#valueA').val(data.valueA);
-                            $('#valueB').val(data.valueB);
-                            $('#valueC').val(data.valueC);
-                            $('#discriminant').val(data.discriminant);
-                            $('#firstResult').val(data.firstResult);
-                            $('#secondResult').val(data.secondResult);
-                        },
-                        error: function (error) {
-                            alert(error.statusText + ': Дискриминант должен быть больше нуля');
-                        }
-                    });
                 });
             });
         });
