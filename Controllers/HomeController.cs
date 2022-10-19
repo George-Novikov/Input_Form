@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Reflection;
 using Microsoft.AspNetCore.Connections.Features;
+using Newtonsoft.Json;
 
 namespace Input_Form.Controllers
 {
@@ -46,10 +47,11 @@ namespace Input_Form.Controllers
                 form.IndicatorB.Value = formTransfer.ValueB;
                 form.IndicatorC.Value = formTransfer.ValueC;
                 bool discriminantPositive = form.CalculateValues();
+                var settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Include };
 
                 if (discriminantPositive)
                 {
-                    return Json(new
+                    string serializedForm = JsonConvert.SerializeObject(new
                     {
                         valueA = form.IndicatorA.Value,
                         valueB = form.IndicatorB.Value,
@@ -58,20 +60,22 @@ namespace Input_Form.Controllers
                         firstResult = form.FirstResult.Value,
                         secondResult = form.SecondResult.Value,
                         success = true
-                    });
+                    }, settings);
+                    return new JsonStringResult(serializedForm);
                 }
                 else
                 {
-                    return Json(new
+                    string serializedForm = JsonConvert.SerializeObject(new
                     {
                         valueA = form.IndicatorA.Value,
                         valueB = form.IndicatorB.Value,
                         valueC = form.IndicatorC.Value,
                         discriminant = form.Discriminant.Value,
-                        firstResult = form.FirstResult.Value,
-                        secondResult = form.SecondResult.Value,
+                        firstResult = 0,
+                        secondResult = 0,
                         success = false
-                    });
+                    }, settings);
+                    return new JsonStringResult(serializedForm);
                 }
             }
             catch (Exception e)

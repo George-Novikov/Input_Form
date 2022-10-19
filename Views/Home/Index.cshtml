@@ -78,39 +78,41 @@
                         firstResult: parseFloat($("#firstResult").val()),
                         secondResult: parseFloat($("#secondResult").val())
                     };
-                    $.ajax({
-                        url: 'home/postform',
-                        type: 'post',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        data: JSON.stringify(formTransfer),
-                        success: function (data) {
-                            $('#valueA').val(data.valueA);
-                            $('#valueB').val(data.valueB);
-                            $('#valueC').val(data.valueC);
-                            $('#discriminant').val(data.discriminant);
-                            $('#firstResult').val(data.firstResult);
-                            $('#secondResult').val(data.secondResult);
-                            if (data.success == false){
-                                alert('Отрицательный дискриминант. Пожалуйста введите другие значения.')
+                    if ($('#valueA').val() != '' && $('#valueB').val() != '' && $('#valueC').val() != '') {
+                        $.ajax({
+                            url: 'home/postform',
+                            type: 'post',
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            data: JSON.stringify(formTransfer),
+                            success: function (data) {
+                                $('#valueA').val(data.valueA);
+                                $('#valueB').val(data.valueB);
+                                $('#valueC').val(data.valueC);
+                                $('#discriminant').val(data.discriminant);
+                                $('#firstResult').val(data.firstResult);
+                                $('#secondResult').val(data.secondResult);
+                                if (data.success == false) {
+                                    alert('Отрицательный дискриминант. Пожалуйста введите другие значения.')
+                                }
+                            },
+                            error: function (error) {
+                                console.log(error.statusText + ': Введите больше данных');
                             }
-                        },
-                        error: function (error) {
-                            console.log(error.statusText + ': Введите больше данных');
-                        }
-                    });
+                        });
+                    } else {
+                        console.log('Пустое поле. Пожалуйста заполните все значения.');
+                    }
                 }
                 $(function () {
                     var empty = true;
-                    $('input[type="number"]').each(function(){
-                        if ($(this).val() != ""){
+                    $('input[type="number"]').each(function () {
+                        if ($(this).val() != "") {
                             empty = false;
-                            console.log('Пустое поле. Пожалуйста заполните значение.');
                             return false;
                         }
                     })
-                    if (empty == false)
-                    {
+                    if (empty == false) {
                         $(".formTable").on("change", onChanged)
                     }
                 });

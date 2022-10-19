@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CQE5RMCsGd8DfeMc2U+zUmhszx9d/XmNdA8PipA2JBH7RX8agi8ZN9dhUpwbtFehdyqxDvRAVAVGju/5a9OlRQ==",
+  "dgSpecHash": "z8uFzbB8v4err+K1z0EBpxi8wqobSeNJg7M0WzIlI1TzZ6hVGCk4mU6isPmjYRWx1p9mvsnhCkHqdMIq+bLVAA==",
   "success": true,
   "projectFilePath": "C:\\repository\\Input_Form\\Input_Form.csproj",
   "expectedPackageFiles": [
@@ -31,6 +31,7 @@
     "C:\\Users\\fatem\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\fatem\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\fatem\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\fatem\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\fatem\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\fatem\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
     "C:\\Users\\fatem\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
