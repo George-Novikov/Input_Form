@@ -9,24 +9,18 @@ namespace Input_Form.Models
         public int FormId { get; set; }
         public DateTime CreationDateTime { get; set; }
         public string FormName { get; set; } = "";
-        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
         public Indicator IndicatorA { get; set; }
-        public double ValueA { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+        public string ValueA { get; set; } = "0";
         public Indicator IndicatorB { get; set; }
-        public double ValueB { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+        public string ValueB { get; set; } = "0";
         public Indicator IndicatorC { get; set; }
-        public double ValueC { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+        public string ValueC { get; set; } = "0";
         public Indicator Discriminant { get; set; }
-        public double DiscriminantValue { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+        public string DiscriminantValue { get; set; } = "0";
         public Indicator FirstResult { get; set; }
-        public double FirstResultValue { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+        public string FirstResultValue { get; set; } = "0";
         public Indicator SecondResult { get; set; }
-        public double SecondResultValue { get; set; }
+        public string SecondResultValue { get; set; } = "0";
 
         public void SetFormCreationDateTime()
         {
@@ -44,35 +38,6 @@ namespace Input_Form.Models
             Discriminant = new Formula { Title = "Дискриминант", Formula = "Pow(B,2)-4*A*C" };
             FirstResult = new Formula { Title = "Первый результат", Formula = "(-B+Sqrt(D))/2*A" };
             SecondResult = new Formula { Title = "Второй результат", Formula = "(-B-Sqrt(D))/2*A" };
-        }
-        public bool CalculateValues()
-        {
-            Discriminant.Value = (Math.Pow(IndicatorB.Value, 2)) - (4 * IndicatorA.Value * IndicatorC.Value);
-
-            if (Discriminant.Value >= 0)
-            {
-                if (IndicatorA.Value != 0)
-                {
-                    FirstResult.Value = (-IndicatorB.Value + Math.Sqrt(Discriminant.Value)) / (2 * IndicatorA.Value);
-                    SecondResult.Value = (-IndicatorB.Value - Math.Sqrt(Discriminant.Value)) / (2 * IndicatorA.Value);
-                    SetValues();
-                    return true;
-                }
-                else
-                {
-                    FirstResult.Value = 0;
-                    SecondResult.Value = 0;
-                    SetValues();
-                    return true;
-                }
-            }
-            else
-            {
-                FirstResult.Value = 0;
-                SecondResult.Value = 0;
-                SetValues();
-                return false;
-            }
         }
         public void SetValues()
         {

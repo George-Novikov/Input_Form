@@ -35,16 +35,42 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(function () {
+                function fillD(){
+                    const discriminantFormula = $('#collapsedD').val();
+                    return new Function(discriminantFormula)();
+                }
+                $(function(){
+                    let resultD = fillD;
+                    $('#D').val(resultD);
+                });
+                function fillX1(){
+                    const firstResultFormula = $('#collapsedX1').val();
+                    return new Function(firstResultFormula)();
+                }
+                $(function(){
+                    let resultX1 = fillX1;
+                    $('#X1').val(resultX1);
+                });
+                function fillX2() {
+                    const firstResultFormula = $('#collapsedX2').val();
+                    return new Function(firstResultFormula)();
+                }
+                $(function () {
+                    let resultX2 = fillX2;
+                    $('#X2').val(resultX2);
+                });
+            });
+            $(function () {
                 $(".saveButton").click(function () {
                     var formTransfer = {
-                        valueA: parseFloat($("#valueA").val()),
-                        valueB: parseFloat($("#valueB").val()),
-                        valueC: parseFloat($("#valueC").val()),
-                        discriminant: parseFloat($("#discriminant").val()),
-                        firstResult: parseFloat($("#firstResult").val()),
-                        secondResult: parseFloat($("#secondResult").val())
+                        valueA: $("#A").val(),
+                        valueB: $("#B").val(),
+                        valueC: $("#C").val(),
+                        discriminant: $("#D").val(),
+                        firstResult: $("#X1").val(),
+                        secondResult: $("#X2").val()
                     };
-                    if ($('#valueA').val() != '' && $('#valueB').val() != '' && $('#valueC').val() != '') {
+                    if ($('#A').val() != '' && $('#B').val() != '' && $('#C').val() != '') {
                         $.ajax({
                             url: 'home/saveformtodb',
                             type: 'post',
@@ -70,35 +96,30 @@
             });
             $(function () {
                 var onChanged = function () {
-                    var formTransfer = {
-                        valueA: parseFloat($("#valueA").val()),
-                        valueB: parseFloat($("#valueB").val()),
-                        valueC: parseFloat($("#valueC").val()),
-                        discriminant: parseFloat($("#discriminant").val()),
-                        firstResult: parseFloat($("#firstResult").val()),
-                        secondResult: parseFloat($("#secondResult").val())
-                    };
-                    if ($('#valueA').val() != '' && $('#valueB').val() != '' && $('#valueC').val() != '') {
-                        $.ajax({
-                            url: 'home/postform',
-                            type: 'post',
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                            data: JSON.stringify(formTransfer),
-                            success: function (data) {
-                                $('#valueA').val(data.valueA);
-                                $('#valueB').val(data.valueB);
-                                $('#valueC').val(data.valueC);
-                                $('#discriminant').val(data.discriminant);
-                                $('#firstResult').val(data.firstResult);
-                                $('#secondResult').val(data.secondResult);
-                                if (data.success == false) {
-                                    alert('Отрицательный дискриминант. Пожалуйста введите другие значения.')
-                                }
-                            },
-                            error: function (error) {
-                                console.log(error.statusText + ': Введите больше данных');
-                            }
+                    if ($('#A').val() != '' && $('#B').val() != '' && $('#C').val() != '') {
+                        function fillD() {
+                            const discriminantFormula = $('#collapsedD').val();
+                            return new Function(discriminantFormula)();
+                        }
+                        $(function () {
+                            let resultD = fillD;
+                            $('#D').val(resultD);
+                        });
+                        function fillX1() {
+                            const firstResultFormula = $('#collapsedX1').val();
+                            return new Function(firstResultFormula)();
+                        }
+                        $(function () {
+                            let resultX1 = fillX1;
+                            $('#X1').val(resultX1);
+                        });
+                        function fillX2() {
+                            const firstResultFormula = $('#collapsedX2').val();
+                            return new Function(firstResultFormula)();
+                        }
+                        $(function () {
+                            let resultX2 = fillX2;
+                            $('#X2').val(resultX2);
                         });
                     } else {
                         console.log('Пустое поле. Пожалуйста заполните все значения.');
@@ -137,27 +158,40 @@
                 <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
                 <tr align="left">
                     <td>@Model.IndicatorA.Title</td>
-                    <td><input type="number" id="valueA" value="@Model.IndicatorA.Value" pattern="[0-9]+"/></td>
+                    <td><input type="number" id="A" value="@Model.IndicatorA.Value" pattern="[0-9]+"/></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.IndicatorB.Title</td>
-                    <td><input type="number" id="valueB" value="@Model.IndicatorB.Value" pattern="[0-9]+" /></td>
+                    <td><input type="number" id="B" value="@Model.IndicatorB.Value" pattern="[0-9]+" /></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.IndicatorC.Title</td>
-                    <td><input type="number" id="valueC" value="@Model.IndicatorC.Value" pattern="[0-9]+"/></td>
+                    <td><input type="number" id="C" value="@Model.IndicatorC.Value" pattern="[0-9]+"/></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.Discriminant.Title</td>
-                    <td><input readonly type="text" id="discriminant" value="@Model.Discriminant.Value" /></td>
+                    <td><input readonly type="text" id="D" /></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.FirstResult.Title</td>
-                    <td><input readonly type="text" id="firstResult" value="@Model.FirstResult.Value" /></td>
+                    <td><input readonly type="text" id="X1" /></td>
                 </tr>
                 <tr align="left">
                     <td>@Model.SecondResult.Title</td>
-                    <td><input readonly type="text" id="secondResult" value="@Model.SecondResult.Value" /></td>
+                    <td><input readonly type="text" id="X2" /></td>
+                </tr>
+                <!--Here is the collapsed section of table rows - used to store formulas-->
+                <tr align="left" style="visibility:collapse">
+                    <td>@Model.Discriminant.Title</td>
+                    <td><input readonly type="text" id="collapsedD" value="@Model.Discriminant.Value" /></td>
+                </tr>
+                <tr align="left" style="visibility:collapse">
+                    <td>@Model.FirstResult.Title</td>
+                    <td><input readonly type="text" id="collapsedX1" value="@Model.FirstResult.Value" /></td>
+                </tr>
+                <tr align="left" style="visibility:collapse">
+                    <td>@Model.SecondResult.Title</td>
+                    <td><input readonly type="text" id="collapsedX2" value="@Model.SecondResult.Value" /></td>
                 </tr>
             </thread>
         </table>

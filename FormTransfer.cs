@@ -4,11 +4,11 @@ namespace Input_Form
 {
     public class FormTransfer
     {
-        public double ValueA { get; set; }
-        public double ValueB { get; set; }
-        public double ValueC { get; set; }
-        public double Discriminant { get; set; }
-        public double FirstResult { get; set; }
-        public double SecondResult { get; set; }
+        public string ValueA { get; set; }
+        public string ValueB { get; set; }
+        public string ValueC { get; set; }
+        public string Discriminant { get; set; }
+        public string FirstResult { get; set; }
+        public string SecondResult { get; set; }
     }
 }

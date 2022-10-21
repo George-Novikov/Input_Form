@@ -27,6 +27,10 @@ namespace Input_Form.Controllers
         {
             formInstance = FormCreator.LoadForm();
 
+            formInstance.Discriminant.Value = FormulaConverter.ConvertFormula(formInstance.Discriminant.Formula);
+            formInstance.FirstResult.Value = FormulaConverter.ConvertFormula(formInstance.FirstResult.Formula);
+            formInstance.SecondResult.Value = FormulaConverter.ConvertFormula(formInstance.SecondResult.Formula);
+
             return View(formInstance);
         }
 
@@ -46,10 +50,9 @@ namespace Input_Form.Controllers
                 form.IndicatorA.Value = formTransfer.ValueA;
                 form.IndicatorB.Value = formTransfer.ValueB;
                 form.IndicatorC.Value = formTransfer.ValueC;
-                bool discriminantPositive = form.CalculateValues();
                 var settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Include };
 
-                if (discriminantPositive)
+                if (double.Parse(form.Discriminant.Value) > 0)
                 {
                     string serializedForm = JsonConvert.SerializeObject(new
                     {
@@ -97,7 +100,6 @@ namespace Input_Form.Controllers
                 form.SetFormCreationDateTime();
                 form.InitializeDefaultValues();
                 form.InitializeDefaultFormulas();
-                form.CalculateValues();
                 form.IndicatorA.Value = formTransfer.ValueA;
                 form.IndicatorB.Value = formTransfer.ValueB;
                 form.IndicatorC.Value = formTransfer.ValueC;
