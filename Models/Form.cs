@@ -36,8 +36,8 @@ namespace Input_Form.Models
         public void InitializeDefaultFormulas()
         {
             Discriminant = new Formula { Title = "Дискриминант", Formula = "Pow(B,2)-4*A*C" };
-            FirstResult = new Formula { Title = "Первый результат", Formula = "(-B+Sqrt(D))/2*A" };
-            SecondResult = new Formula { Title = "Второй результат", Formula = "(-B-Sqrt(D))/2*A" };
+            FirstResult = new Formula { Title = "Первый результат", Formula = "(-B+Sqrt(D))/(2*A)" };
+            SecondResult = new Formula { Title = "Второй результат", Formula = "(-B-Sqrt(D))/(2*A)" };
         }
         public void SetValues()
         {

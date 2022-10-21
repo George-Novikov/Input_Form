@@ -27,9 +27,7 @@ namespace Input_Form.Controllers
         {
             formInstance = FormCreator.LoadForm();
 
-            formInstance.Discriminant.Value = FormulaConverter.ConvertFormula(formInstance.Discriminant.Formula);
-            formInstance.FirstResult.Value = FormulaConverter.ConvertFormula(formInstance.FirstResult.Formula);
-            formInstance.SecondResult.Value = FormulaConverter.ConvertFormula(formInstance.SecondResult.Formula);
+            formInstance = FormulaConverter.ConvertAllFormulas(formInstance);
 
             return View(formInstance);
         }
