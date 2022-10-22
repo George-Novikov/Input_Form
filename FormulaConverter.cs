@@ -5,9 +5,16 @@ namespace Input_Form
 {
     public class FormulaConverter
     {
-        public static string[] Tokens = {
+        private static string[] Tokens = {
             "+", "-", "*", "/", "Pow", "Sqrt", "Cbrt", "(", ")", ",",
             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+        private static Dictionary<string, string> mathOperators = new Dictionary<string, string>
+            {
+                {"Pow", "Math.pow" },
+                {"Sqrt", "Math.sqrt" },
+                {"Cbrt", "Math.cbrt" }
+            };
         public static string ConvertFormula(string formula)
         {
             string trimmedFormula = formula;
@@ -24,9 +31,11 @@ namespace Input_Form
                 bufferFormula = bufferFormula.Replace(character, replacement);
             }
 
-            bufferFormula = bufferFormula.Replace("Pow", "Math.pow");
-            bufferFormula = bufferFormula.Replace("Sqrt", "Math.sqrt");
-            bufferFormula = bufferFormula.Replace("Cbrt", "Math.cbrt");
+            foreach (var pair in mathOperators)
+            {
+                bufferFormula = bufferFormula.Replace(pair.Key, pair.Value);
+            }
+
             bufferFormula = "return " + bufferFormula;
 
             return bufferFormula;
@@ -44,13 +53,6 @@ namespace Input_Form
                 form.IndicatorB.Title.Replace("Значение ", ""),
                 form.IndicatorC.Title.Replace("Значение ", ""),
                 "D"
-            };
-
-            Dictionary<string, string> mathOperators = new Dictionary<string, string>
-            {
-                {"Pow", "Math.pow" },
-                {"Sqrt", "Math.sqrt" },
-                {"Cbrt", "Math.cbrt" }
             };
 
             foreach (string value in thesaurus)

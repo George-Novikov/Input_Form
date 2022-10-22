@@ -33,59 +33,6 @@ namespace Input_Form.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostForm([FromBody] FormTransfer formTransfer)
-        {
-            if (formTransfer == null)
-            {
-                formTransfer = new FormTransfer();
-            }
-            try
-            {
-                Form form = new Form();
-                form.SetFormCreationDateTime();
-                form.InitializeDefaultValues();
-                form.InitializeDefaultFormulas();
-                form.IndicatorA.Value = formTransfer.ValueA;
-                form.IndicatorB.Value = formTransfer.ValueB;
-                form.IndicatorC.Value = formTransfer.ValueC;
-                var settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Include };
-
-                if (double.Parse(form.Discriminant.Value) > 0)
-                {
-                    string serializedForm = JsonConvert.SerializeObject(new
-                    {
-                        valueA = form.IndicatorA.Value,
-                        valueB = form.IndicatorB.Value,
-                        valueC = form.IndicatorC.Value,
-                        discriminant = form.Discriminant.Value,
-                        firstResult = form.FirstResult.Value,
-                        secondResult = form.SecondResult.Value,
-                        success = true
-                    }, settings);
-                    return new JsonStringResult(serializedForm);
-                }
-                else
-                {
-                    string serializedForm = JsonConvert.SerializeObject(new
-                    {
-                        valueA = form.IndicatorA.Value,
-                        valueB = form.IndicatorB.Value,
-                        valueC = form.IndicatorC.Value,
-                        discriminant = form.Discriminant.Value,
-                        firstResult = 0,
-                        secondResult = 0,
-                        success = false
-                    }, settings);
-                    return new JsonStringResult(serializedForm);
-                }
-            }
-            catch (Exception e)
-            {
-                return Json(new { status = e.Message + " " + e.TargetSite });
-            }
-        }
-
-        [HttpPost]
         public IActionResult SaveFormToDB([FromBody] FormTransfer formTransfer)
         {
             if (formTransfer == null)
