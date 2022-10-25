@@ -29,15 +29,15 @@ namespace Input_Form.Models
         }
         public void InitializeDefaultValues()
         {
-            IndicatorA = new ManualInput { Title = "Значение A", Formula = "-" };
-            IndicatorB = new ManualInput { Title = "Значение B", Formula = "-" };
-            IndicatorC = new ManualInput { Title = "Значение C", Formula = "-" };
+            IndicatorA = new ManualInput { Title = "A", Description = "Значение A", Formula = "-" };
+            IndicatorB = new ManualInput { Title = "B", Description = "Значение B", Formula = "-" };
+            IndicatorC = new ManualInput { Title = "C", Description = "Значение C", Formula = "-" };
         }
         public void InitializeDefaultFormulas()
         {
-            Discriminant = new Formula { Title = "Дискриминант", Formula = "Pow(B,2)-4*A*C" };
-            FirstResult = new Formula { Title = "Первый результат", Formula = "(-B+Sqrt(D))/(2*A)" };
-            SecondResult = new Formula { Title = "Второй результат", Formula = "(-B-Sqrt(D))/(2*A)" };
+            Discriminant = new Formula { Title = "D", Description = "Дискриминант", Formula = "Pow(B,2)-4*A*C" };
+            FirstResult = new Formula { Title = "X1", Description = "Первый результат", Formula = "(-B+Sqrt(D))/(2*A)" };
+            SecondResult = new Formula { Title = "X2", Description = "Второй результат", Formula = "(-B-Sqrt(D))/(2*A)" };
         }
         public void SetValues()
         {
@@ -47,13 +47,6 @@ namespace Input_Form.Models
             DiscriminantValue = Discriminant.Value;
             FirstResultValue = FirstResult.Value;
             SecondResultValue = SecondResult.Value;
-
-            IndicatorA.Description = IndicatorA.Type + "_Result_" + ValueA.ToString();
-            IndicatorB.Description = IndicatorB.Type + "_Result_" + ValueB.ToString();
-            IndicatorC.Description = IndicatorC.Type + "_Result_" + ValueC.ToString();
-            Discriminant.Description = Discriminant.Type + "_Result_" + DiscriminantValue.ToString();
-            FirstResult.Description = FirstResult.Type + "_Result_" + FirstResultValue.ToString();
-            SecondResult.Description = SecondResult.Type + "_Result_" + SecondResultValue.ToString();
         }
     }
 }

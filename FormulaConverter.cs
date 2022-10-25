@@ -49,10 +49,12 @@ namespace Input_Form
 
             string[] thesaurus =
             {
-                form.IndicatorA.Title.Replace("Значение ", ""),
-                form.IndicatorB.Title.Replace("Значение ", ""),
-                form.IndicatorC.Title.Replace("Значение ", ""),
-                "D"
+                form.IndicatorA.Title,
+                form.IndicatorB.Title,
+                form.IndicatorC.Title,
+                form.Discriminant.Title,
+                form.FirstResult.Title,
+                form.SecondResult.Title
             };
 
             foreach (string value in thesaurus)

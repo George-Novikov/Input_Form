@@ -187,40 +187,40 @@
             <thread>
                 <tr align="left"><td>Индикатор</td><td>Значение</td></tr>
                 <tr align="left">
-                    <td>@Model.IndicatorA.Title</td>
+                    <td>@Model.IndicatorA.Description</td>
                     <td><input type="number" id="A" value="@Model.IndicatorA.Value" pattern="[0-9]+"/></td>
                 </tr>
                 <tr align="left">
-                    <td>@Model.IndicatorB.Title</td>
+                    <td>@Model.IndicatorB.Description</td>
                     <td><input type="number" id="B" value="@Model.IndicatorB.Value" pattern="[0-9]+" /></td>
                 </tr>
                 <tr align="left">
-                    <td>@Model.IndicatorC.Title</td>
+                    <td>@Model.IndicatorC.Description</td>
                     <td><input type="number" id="C" value="@Model.IndicatorC.Value" pattern="[0-9]+"/></td>
                 </tr>
                 <tr align="left">
-                    <td>@Model.Discriminant.Title</td>
+                    <td>@Model.Discriminant.Description</td>
                     <td><input readonly type="text" id="D" value="-"/></td>
                 </tr>
                 <tr align="left">
-                    <td>@Model.FirstResult.Title</td>
+                    <td>@Model.FirstResult.Description</td>
                     <td><input readonly type="text" id="X1" value="-"/></td>
                 </tr>
                 <tr align="left">
-                    <td>@Model.SecondResult.Title</td>
+                    <td>@Model.SecondResult.Description</td>
                     <td><input readonly type="text" id="X2" value="-"/></td>
                 </tr>
                 <!--Here is the collapsed section of table rows - used to store formulas-->
                 <tr align="left" style="visibility:collapse">
-                    <td>@Model.Discriminant.Title</td>
+                    <td>@Model.Discriminant.Description</td>
                     <td><input readonly type="text" id="collapsedD" value="@Model.Discriminant.Value" /></td>
                 </tr>
                 <tr align="left" style="visibility:collapse">
-                    <td>@Model.FirstResult.Title</td>
+                    <td>@Model.FirstResult.Description</td>
                     <td><input readonly type="text" id="collapsedX1" value="@Model.FirstResult.Value" /></td>
                 </tr>
                 <tr align="left" style="visibility:collapse">
-                    <td>@Model.SecondResult.Title</td>
+                    <td>@Model.SecondResult.Description</td>
                     <td><input readonly type="text" id="collapsedX2" value="@Model.SecondResult.Value" /></td>
                 </tr>
             </thread>

@@ -14,7 +14,6 @@ namespace Input_Form.Controllers
     public class HomeController : Controller
     {
         public Form formInstance = new Form();
-        public FormTransfer formBuffer = new FormTransfer();
 
         private readonly ILogger<HomeController> _logger;
 
